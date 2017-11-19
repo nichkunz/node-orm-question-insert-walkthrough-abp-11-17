@@ -1,5 +1,5 @@
 const db = require("../config/db")
-
+ 
 class Question{
   static CreateTable() {
     return new Promise(function(resolve){
@@ -7,20 +7,20 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-
+ 
       db.run(sql, function(){
         resolve("questions table created")
-      })
+      })      
     })
   }
-
+ 
   constructor(content){
     this.content = content
   }
-
-  insert() {
-    const self = this
-    const sql = `INSERT INTO questions VALUES (?)`
+ 
+  insert(){
+    const self = this // THIS IS THE CRUX
+    const sql = `INSERT INTO questions (content) VALUES (?)`
     return new Promise(function(resolve){
       db.run(sql, [self.content], function(err, result){
         resolve("Row inserted!")
@@ -28,6 +28,5 @@ class Question{
     })
   }
 }
-
-
+ 
 module.exports = Question;
